@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Form Builder</title>
+<style>
+    .center {
+    text-align: center;
+  }
+
+  
+  .green-button {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px; 
+  }
+
+ 
+  .red-button {
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<form id="dynamic-form">
+  <div id="form-fields">
+    <!-- Initial form fields will be added here -->
+  </div>
+  <button type="button" class="green-button" onclick="addField('text')">Add Text Input</button>
+  <button type="button" class="green-button" onclick="addField('checkbox')">Add Checkbox</button>
+  <button type="button" class="green-button" onclick="addField('radio')">Add Radio Button</button>
+  <button type="button" class="red-button" onclick="removeField()">Remove Field</button>
+
+</form>
+
+<script>
+function addField(type) {
+  const formFieldsDiv = document.getElementById('form-fields');
+  const newField = document.createElement('div');
+  newField.className = 'form-field';
+
+  switch (type) {
+    case 'text':
+      newField.innerHTML = '<input type="text" name="text-inputs[]" placeholder="Text input">';
+      break;
+    case 'checkbox':
+      newField.innerHTML = '<input type="checkbox" name="checkboxes[]" id="checkbox"><label for="checkbox">Checkbox</label>';
+      break;
+    case 'radio':
+      newField.innerHTML = '<input type="radio" name="radio-buttons" id="radio"><label for="radio">Radio Button</label>';
+      break;
+    default:
+      return;
+  }
+
+  formFieldsDiv.appendChild(newField);
+}
+
+function removeField() {
+  const formFieldsDiv = document.getElementById('form-fields');
+  const formFields = formFieldsDiv.getElementsByClassName('form-field');
+  if (formFields.length > 0) {
+    formFieldsDiv.removeChild(formFields[formFields.length - 1]);
+  }
+}
+</script>
+
+</body>
+</html>
